@@ -21,16 +21,26 @@ class _SignupScreenState extends State<SignupScreen> {
   final AuthService authService = AuthService();
 
   bool _showPassword = false;
-  bool _isEmailValid = false;
+  bool _isEmailValid = true;
+
+  bool _isLoading = false;
 
   void signupUser() {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
       authService.signUpUser(
         context: context,
         email: emailController.text,
         password: passwordController.text,
         name: nameController.text,
       );
+
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -51,16 +61,28 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.08),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextFormField(
                       controller: nameController,
                       decoration: InputDecoration(
-                        hintText: "Enter your name",
                         border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(50.0),
+                              color: Colors.transparent, width: 0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                              color: Colors.transparent, width: 0),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 14),
+                        filled: true,
+                        fillColor: const Color(0xffF5F6FA),
+                        hintText: 'Enter your name',
+                        hintStyle: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       validator: (value) {
@@ -82,10 +104,22 @@ class _SignupScreenState extends State<SignupScreen> {
                             ? null
                             : 'Enter a valid email address',
                         border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(50.0),
+                              color: Colors.transparent, width: 0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                              color: Colors.transparent, width: 0),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 14),
+                        filled: true,
+                        fillColor: const Color(0xffF5F6FA),
+                        hintStyle: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       onChanged: (value) {
@@ -110,10 +144,22 @@ class _SignupScreenState extends State<SignupScreen> {
                       decoration: InputDecoration(
                         hintText: "Enter your password",
                         border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
                           borderSide: const BorderSide(
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(50.0),
+                              color: Colors.transparent, width: 0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: const BorderSide(
+                              color: Colors.transparent, width: 0),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 14),
+                        filled: true,
+                        fillColor: const Color(0xffF5F6FA),
+                        hintStyle: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                         ),
                         suffixIcon: IconButton(
                           onPressed: () {
@@ -149,10 +195,15 @@ class _SignupScreenState extends State<SignupScreen> {
                         Size(MediaQuery.of(context).size.width / 2.5, 50),
                       ),
                     ),
-                    child: const Text(
-                      "Sign up",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
+                    child: _isLoading
+                        ? const CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          )
+                        : const Text(
+                            "Sign up",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.1),
                   TextButton(
