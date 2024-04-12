@@ -1,3 +1,4 @@
+import 'package:beproject/screens/analysis_screen.dart';
 import 'package:beproject/screens/profile_screen.dart';
 import 'package:beproject/screens/trends_screen.dart';
 import 'package:beproject/widgets/bottom%20_navigation_bar_widget.dart';
@@ -13,9 +14,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentTab = 0;
   final List<Widget> screens = [
+    const AnalysisScreen(),
     const TrendsScreen(),
-    const TrendsScreen(),
-    const TrendsScreen(),
+    const ProfileScreen(),
     const ProfileScreen(),
   ];
 

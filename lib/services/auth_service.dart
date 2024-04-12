@@ -84,8 +84,11 @@ class AuthService {
           context: context,
           onSuccess: () async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            userProvider.setUser(res.body);
-            // print(res.body);
+            Map<String, dynamic> responseData = jsonDecode(res.body);
+            String userData = jsonEncode(responseData['user']);
+            print(userData);
+            userProvider.setUser(userData);
+
             // print(jsonDecode(res.body)['_id']);
             await prefs.setString(
                 'x-auth-token', jsonDecode(res.body)['user']['_id']);
