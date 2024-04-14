@@ -8,7 +8,7 @@ class TrendsScreen extends StatelessWidget {
     return const Scaffold(
       body: Center(
         child: Text(
-          "Hello",
+          "Work in progress.....",
         ),
       ),
     );

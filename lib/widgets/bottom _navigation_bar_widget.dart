@@ -14,23 +14,25 @@ class BottomNavigationBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
-      notchMargin: 8,
+      notchMargin: 6,
       child: SizedBox(
         height: 60,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            buildNavBarItem(0, Icons.home, "Home"),
-            buildNavBarItem(1, Icons.trending_up_sharp, "Trends"),
-            buildNavBarItem(2, Icons.smart_display_outlined, "AI Post"),
-            buildNavBarItem(3, Icons.person, "Profile"),
+            buildNavBarItem(0, Icons.home, "Home", context),
+            buildNavBarItem(1, Icons.trending_up_sharp, "Trends", context),
+            buildNavBarItem(
+                2, Icons.smart_display_outlined, "AI Post", context),
+            buildNavBarItem(3, Icons.person, "Profile", context),
           ],
         ),
       ),
     );
   }
 
-  Widget buildNavBarItem(int index, IconData icon, String label) {
+  Widget buildNavBarItem(
+      int index, IconData icon, String label, BuildContext context) {
     return Expanded(
       child: MaterialButton(
         onPressed: () {
@@ -40,12 +42,16 @@ class BottomNavigationBarWidget extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: currentTab == index ? Colors.amber : Colors.grey,
+              color: currentTab == index
+                  ? Theme.of(context).primaryColor
+                  : Colors.grey,
             ),
             Text(
               label,
               style: TextStyle(
-                color: currentTab == index ? Colors.amber : Colors.grey,
+                color: currentTab == index
+                    ? Theme.of(context).primaryColor
+                    : Colors.grey,
               ),
             )
           ],

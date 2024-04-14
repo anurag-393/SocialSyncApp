@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:beproject/models/data_model.dart';
 import 'package:beproject/screens/details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomCarosal extends StatefulWidget {
   const CustomCarosal({Key? key}) : super(key: key);
@@ -73,16 +74,15 @@ class _CustomCarosalState extends State<CustomCarosal> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 40),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Padding(
             padding: EdgeInsets.all(40.0),
-            child: Center(
-              child: Text("Recent Posts",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                      fontSize: 30)),
-            ),
+            child: Text("Recent Posts",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                    fontSize: 30)),
           ),
           AspectRatio(
             aspectRatio: 0.85,
@@ -134,23 +134,61 @@ class _CustomCarosalState extends State<CustomCarosal> {
                     ),
                   );
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    image: DecorationImage(
-                      image: AssetImage(
-                        data.imageName,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        image: DecorationImage(
+                          image: AssetImage(
+                            data.imageName,
+                          ),
+                          fit: BoxFit.fill,
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                              offset: Offset(0, 4),
+                              blurRadius: 4,
+                              color: Colors.black26)
+                        ],
                       ),
-                      fit: BoxFit.fill,
                     ),
-                    boxShadow: const [
-                      BoxShadow(
-                          offset: Offset(0, 4),
-                          blurRadius: 4,
-                          color: Colors.black26)
-                    ],
-                  ),
+                    Positioned(
+                      right: 20,
+                      top: 10,
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.black
+                              .withOpacity(0.5), // Adjust the opacity as needed
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Image.asset(
+                            //   'assets/images/facebook.svg', // Adjust the path to your Facebook logo SVG file
+                            //   height: 20, // Adjust the size of the logo
+                            //   width: 20,
+                            //   color:
+                            //       Colors.white, // Adjust the color of the logo
+                            // ),
+                            SvgPicture.asset(
+                              'assets/images/${data.platform.toLowerCase()}.svg', // Using data.platform and converting it to lowercase
+                              height: 20,
+                              width: 20,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              data.platform,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -166,11 +204,11 @@ class _CustomCarosalState extends State<CustomCarosal> {
                 fontWeight: FontWeight.bold),
           ),
         ),
-        Padding(
+        const Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "\$${data.price}",
-            style: const TextStyle(
+            "Title:",
+            style: TextStyle(
                 color: Colors.black87,
                 fontSize: 16,
                 fontWeight: FontWeight.bold),

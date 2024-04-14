@@ -40,6 +40,19 @@ dependencies:
   http: ^1.2.0
   email_validator: ^2.1.17
   shared_preferences: ^2.2.2
+  file_picker: ^8.0.0+1
+  google_fonts: ^4.0.4
+  flutter_svg: ^2.0.10+1
+  video_player: ^2.8.6
+  get: ^4.6.6
+  transition: ^2.0.2
+  fl_chart: ^0.35.0
+  charts_flutter: ^0.12.0
+
+
+
+
+
 
 dev_dependencies:
   flutter_test:
